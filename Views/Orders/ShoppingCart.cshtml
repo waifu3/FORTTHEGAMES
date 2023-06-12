@@ -1,0 +1,96 @@
+﻿@using FORTTHEGAMES.Data.ViewModels;
+@model ShoppingCartVM
+
+@{
+    ViewData["Title"] = "Resumen de carro de compra";
+}
+
+<div class="container-fluid py-3 p-0 pb-0 m-0">
+    <div class="container">
+        <div class="section-title">
+            <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">FOR THE GAME</h4>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="text-center pb-5">
+                <h2>Resumen de carro de compra</h2>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Cantidad Seleccionada</th>
+                            <th>Producto</th>
+                            <th></th>
+                            <th>Precio</th>
+                            <th>Subtotal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+                        {
+                            <tr>
+                                <td class="align-middle">@item.monto</td>
+                                <td class="align-middle">@item.Producto.nombre</td>
+                                <td class="align-middle">
+                                    <img src="~/Images/@item.Producto.imagen" height="40" width="40" asp-append-version="true">
+                                </td>
+                                <td class="align-middle">@item.Producto.valor.ToString("c")</td>
+                                <td class="align-middle">@((item.monto * item.Producto.valor).ToString("c"))</td>
+                                <td class="align-middle">
+                                    <a class="text-danger" asp-controller="Orders" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Producto.id_producto">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                    |
+                                    <a class="text-success" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Producto.id_producto">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td><b>Total:</b></td>
+                            <td>
+                                @Model.ShoppingCartTotal.ToString("c")
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="text-center container-fluid">
+                <div class="btn-group">
+                    <div class="m-3" >
+                        Pagar con <img src="https://s3.amazonaws.com/static.khipu.com/buttons/2021/110x50-purple.png">
+                    </div>
+                    <div>
+                        <a class="btn p-3 m-3 btn-outline-success" asp-controller="Pasarela" asp-action="PayKhipu" asp-route-id="@Model.ShoppingCart.ShoppingCartId">
+                            Ir a Pagar
+                        </a>
+                    </div>
+                    <div>
+                        <a class="btn p-3 m-3 btn-outline-success" asp-controller="Tienda" asp-action="Index">
+                            Agregar productos
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+@section Scripts{
+
+
+}

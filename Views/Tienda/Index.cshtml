@@ -1,0 +1,232 @@
+﻿@model IEnumerable<FORTTHEGAMES.Models.Producto>
+@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "Tienda";
+}
+
+@section scripts{
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="~/css/tienda.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+}
+
+</div>
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="section-title">
+            <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">FOR THE GAME</h4>
+            <h1 class="display-4">Productos disponibles </h1>
+        </div>
+       
+    </div>
+</div>
+<section>
+    <!--JUEGOS-->
+    <div class="container py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <h2 class="text-center p-5">Juegos</h2>
+
+                @foreach (var producto in Model)
+                {
+                    @if (producto.estado == 1 && producto.id_categoria == 1)
+                    {
+                        <div class="col-md-4 mb-3">
+                            <div class="card shadow-5 border rounded-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-4">
+                                            <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                                <h5 class="p-2 font-italic">@producto.nombre</h5>
+                                                <img src="~/Images/@producto.imagen" class="w-100" width="500" height="250" />
+                                                <a href="#!">
+                                                    <div class="hover-overlay">
+                                                        <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="d-flex flex-row">
+                                                <div class="text-danger mb-1 me-2">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <p class="text-truncate mb-4 mb-md-0">
+                                                @producto.descripcion
+                                            </p>
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            <div class="d-flex flex-row align-items-center mb-1">
+                                                <h4 class="mb-1 me-1">$@producto.valor.ToString()</h4>
+                                            </div>
+                                            <div class="d-flex flex-column mt-4">
+                                                @if (@ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                                                {
+                                                    <a id="button" class="btn btn-light text-white @((producto.estado == 0) ? "disabled" : "")"
+                                           asp-controller="Orders"
+                                           asp-action="AddItemToShoppingCart"
+                                           asp-route-id="@producto.id_producto">
+                                                        <i class="bi bi-cart-plus"></i> Agregar al carrito
+                                                    </a>
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+   
+<div class="container py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <h2 class="text-center p-5">Consolas</h2>
+
+                @foreach (var producto in Model)
+                {
+                    @if (producto.estado == 1 && producto.id_categoria == 2)
+                    {
+                        <div class="col-md-4 mb-3">
+                            <div class="card shadow-5 border rounded-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-4">
+                                            <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                                <h5 class="p-2 font-italic">@producto.nombre</h5>
+                                                <img src="~/Images/@producto.imagen" class="w-100" width="500" height="250" />
+                                                <a href="#!">
+                                                    <div class="hover-overlay">
+                                                        <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="d-flex flex-row">
+                                                <div class="text-danger mb-1 me-2">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <p class="text-truncate mb-4 mb-md-0">
+                                                @producto.descripcion
+                                            </p>
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            <div class="d-flex flex-row align-items-center mb-1">
+                                                <h4 class="mb-1 me-1">$@producto.valor.ToString()</h4>
+                                            </div>
+                                            <div class="d-flex flex-column mt-4">
+                                                @if (@ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                                                {
+                                                    <a id="button" class="btn btn-light text-white @((producto.estado == 0) ? "disabled" : "")"
+                                           asp-controller="Orders"
+                                           asp-action="AddItemToShoppingCart"
+                                           asp-route-id="@producto.id_producto">
+                                                        <i class="bi bi-cart-plus"></i> Agregar al carrito
+                                                    </a>
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+  
+    <div class="container py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <h2 class="text-center p-5">Accesorios</h2>
+
+                @foreach (var producto in Model)
+                {
+                    @if (producto.estado == 1 && producto.id_categoria == 3)
+                    {
+                        <div class="col-md-4 mb-3">
+                            <div class="card shadow-5 border rounded-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-4">
+                                            <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                                <h5 class="p-2 font-italic">@producto.nombre</h5>
+                                                <img src="~/Images/@producto.imagen" class="w-100" width="500" height="250" />
+                                                <a href="#!">
+                                                    <div class="hover-overlay">
+                                                        <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="d-flex flex-row">
+                                                <div class="text-danger mb-1 me-2">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <p class="text-truncate mb-4 mb-md-0">
+                                                @producto.descripcion
+                                            </p>
+                                        </div>
+                                        <div class="col-md-12 mt-3">
+                                            <div class="d-flex flex-row align-items-center mb-1">
+                                                <h4 class="mb-1 me-1">$@producto.valor.ToString()</h4>
+                                            </div>
+                                            <div class="d-flex flex-column mt-4">
+                                                @if (@ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                                                {
+                                                    <a id="button" class="btn btn-light text-white @((producto.estado == 0) ? "disabled" : "")"
+                                           asp-controller="Orders"
+                                           asp-action="AddItemToShoppingCart"
+                                           asp-route-id="@producto.id_producto">
+                                                        <i class="bi bi-cart-plus"></i> Agregar al carrito
+                                                    </a>
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>

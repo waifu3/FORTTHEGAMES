@@ -1,0 +1,6 @@
+﻿@model int;
+
+@if (Model > 0)
+{
+    <a class="nav-item nav-link notifications" asp-controller="Orders" asp-action="ShoppingCart"><i class="fa-sharp fa-solid fa-cart-shopping"></i>@Model</a>
+}

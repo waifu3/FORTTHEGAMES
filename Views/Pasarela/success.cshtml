@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FORTTHEGAMES.Data.ViewModels.ViewModelSuccess>
+
+<div class="container-fluid pt-5 ">
+    <div class="container">
+        <div class="section-title">
+            <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">PAGO EN LINEA</h4>
+
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row d-flex align-items-center">
+        <div class="text-center col-md-12 col-12">
+            <h2 class="title-header">
+                <span><img src="https://anibaldeotero.es/wp-content/uploads/2020/04/Pago-realizado.png" class="width-icon-title" height="100" width="150"></span>
+                
+            </h2>
+            <h2> Productos Pagados.</h2>
+
+            <div class="container">
+                @foreach (var item in Model)
+                {
+                    <div class=" container col-md-4 mb-3">
+                        <div class="card shadow-5 border rounded-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 mb-4">
+                                        <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                            <h5 class="p-2 font-italic"> @item.nombre </h5>
+                                            <img src="~/Images/@item.imagen" class="w-100" width="100%" height="250" />
+                                            <a href="#!">
+                                                <div class="hover-overlay">
+                                                    <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="text-truncate mb-4 mb-md-0">
+                                            -
+                                        </p>
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <div class="d-flex flex-row align-items-center mb-1">
+                                            <h4 class="mb-1 me-1">$@item.valor</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

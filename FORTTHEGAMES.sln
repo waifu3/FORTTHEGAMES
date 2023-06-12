@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FORTTHEGAMES", "FORTTHEGAMES.csproj", "{31A88F59-88A9-4F93-AC5F-07CEBAC02401}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{31A88F59-88A9-4F93-AC5F-07CEBAC02401}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31A88F59-88A9-4F93-AC5F-07CEBAC02401}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31A88F59-88A9-4F93-AC5F-07CEBAC02401}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31A88F59-88A9-4F93-AC5F-07CEBAC02401}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CCFDC353-8E02-4941-91D2-DAD3224913C1}
+	EndGlobalSection
+EndGlobal

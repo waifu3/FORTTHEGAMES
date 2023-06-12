@@ -1,0 +1,36 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.content-container {
+    padding-top: 70px; /* Ajusta este valor según tus necesidades */
+}
+
+
+
+.purple-gradient {
+    background: linear-gradient(to bottom, black, black);
+   
+    
+    
+}
+
+#button {
+    background-color:#907c6e
+}
+
+
+
+
+

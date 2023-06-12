@@ -1,0 +1,80 @@
+﻿.container-pay {
+    display: flex;
+}
+
+.width-icon-title {
+    width: 70px;
+    height: 70px;
+}
+
+.card-header {
+    color: white;
+}
+
+.balance-row-selected {
+    background-color: #b5120b;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.balance-row {
+    background-color: #bcbcbc;
+    border-radius: 10px;
+}
+
+.btn-balance {
+    background-color: red;
+    color: white;
+}
+
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
+    background-color: red !important;
+}
+
+
+
+/* CSS PARA LINK COPY/PASTE */
+
+.input-group {
+    margin-top: 30px;
+    position: relative;
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-group-addon {
+    border: none;
+}
+
+.linkname {
+    display: none;
+}
+
+#copyButton {
+    cursor: pointer;
+    background: #f1bb3a;
+}
+
+#copyTarget {
+    border-left: none;
+}
+
+.copied {
+    opacity: 1;
+    position: absolute;
+    left: 55px;
+}
+
+@media (min-width: 768px) {
+    .copied {
+        left: 135px;
+    }
+
+    .linkname {
+        display: block;
+        background: #3b3e45;
+        color: #fff;
+    }
+}

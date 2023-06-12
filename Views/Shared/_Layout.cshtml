@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+@using System.Security.Claims
+
+@{
+    var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+    var roleOfUser = claimsIdentity != null ? string.Join(", ", claimsIdentity.Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value).ToList()) : "User";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FORTTHEGAMES</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FORTTHEGAMES.styles.css" asp-append-version="true" />
+    <link href="~/css/style.min.css" asp-append-version="true"  rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merienda+One">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+<body>
+
+
+    <div class="container-fluid p-0 nav-bar mb-5 position-absolute navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+            <a class="navbar-brand px-lg-4 m-0" asp-area="" asp-controller="Home" asp-action="Index">
+                <h1 class="m-0 display-4 text-uppercase text-white " > FTG</h1>
+            </a>
+
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav ml-auto p-4">
+                    <a class="nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    
+                    <a class="nav-item nav-link" asp-area="" asp-controller="Tienda" asp-action="Index">Tienda</a>
+                   
+                    
+
+                    
+
+                    @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        <div class="navbar-nav ml-auto">
+                            @await Component.InvokeAsync("ShoppingCartSummary")
+                            <div class="nav-item dropdown">
+                                <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle user-action"> @ViewContext.HttpContext.User.FindFirst(ClaimTypes.Name).Value <b class="caret"></b></a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Orders" asp-action="Index"><i class="fa-solid fa-bags-shopping"></i> Historial</a>
+                                    @if (roleOfUser == "Admin")
+                                    {
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Producto" asp-action="Index"><i class="fa fa-user-o"></i> Productos</a>
+                                    }
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Salir"><i class="material-icons">&#xE8AC;</i> Logout</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="navbar-nav ml-auto">
+                            <a class="nav-item nav-link notifications" asp-area="" asp-controller="Acceso" asp-action="Login">Login <i class="fa fa-user-o"></i></a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="content-container">
+        <main role="main" class="pt-5">
+            @RenderBody()
+        </main>
+    </div>
+   
+
+
+
+
+
+
+
+  
+       
+
+    <div  class=" footer text-white mt-5 pt-5 px-0  position-relative overlay-top ">
+        <div class="row mx-0 pt-5 px-sm-3  px-lg-5 mt-4">
+            <div class="col-lg-4 col-md-6 mb-5 ml-5">
+                <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">CONTACTO</h4>
+                <p><i class="fa fa-map-marker-alt mr-2"></i>calle blanco 123, Quilpue.</p>
+                <p><i class="fa fa-phone-alt mr-2"></i>+56 9 67829023</p>
+                <p class="m-0"><i class="fa fa-envelope mr-2"></i>infortg@forthegame.com</p>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-5 ml-5">
+                <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">HORARIOS</h4>
+                <div>
+                    <h6 class="text-white text-uppercase">Lunes - Viernes</h6>
+                    <p>8.00 AM - 8.00 PM</p>
+                    <h6 class="text-white text-uppercase">Sabado - domingo</h6>
+                    <p>2.00 PM - 8.00 PM</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">SIGUENOS</h4>
+
+                <div class="d-flex justify-content-start">
+                    <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+          
+        
+    </div>
+
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://kit.fontawesome.com/f8836bc9df.js" crossorigin="anonymous"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Css", required: false)
+</body>
+</html>

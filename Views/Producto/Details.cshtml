@@ -1,0 +1,46 @@
+﻿@model FORTTHEGAMES.Models.Producto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="container-fluid pt-5 ">
+    <div class="container">
+        <div class="section-title">
+            <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">FOR THE GAME</h4>
+
+        </div>
+
+    </div>
+</div>
+<h1 class="text-center">Detalles</h1>
+<div class="container">
+    <h4>Producto</h4>
+    <hr class="divider" />
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.nombre)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.nombre)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.descripcion)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.descripcion)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.imagen)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.imagen)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.valor)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.valor)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.estado)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.estado)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.id_categoria)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.id_categoria)</dd>
+    </dl>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.id_producto">Editar</a> |
+        <a asp-action="Index">Volver atras</a>
+    </div>
+</div>
+
+

@@ -1,0 +1,312 @@
+﻿@model FORTTHEGAMES.Data.ViewModels.ViewModelPago;
+@{
+    ViewData["Title"] = "Pasarela";
+}
+@section css {
+    <link href="@Url.Content("~/css/pay.css")" rel="stylesheet" />
+
+}
+
+
+<input hidden name="body" value="@Model.body" class="form-control" />
+<input hidden name="subject" value="@Model.subject" class="form-control" />
+<input type="hidden" id="token" name="token" value="@Model.token" class="form-control" />
+<input type="hidden" id="test" name="test" value="test" class="form-control" />
+
+<div class="container-fluid pt-5 ">
+    <div class="container">
+        <div class="section-title">
+            <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">PAGO EN LINEA</h4>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="container card">
+    <div class="card-header" style="background: #D73030; opacity:1.0;">
+        <div class="row px-2">
+            <div class="my-0 border-end col-md-3 col-12">
+                <p class="my-1 my-md-3">
+                    <input hidden name="num_solicitud" value="@Model.num_solicitud" class="form-control" />
+                    <strong>Número de Solicitud:</strong> <br class="d-none d-md-inline">
+                    @Html.LabelForModel(Model.transaction_id)
+
+                </p>
+            </div>
+            <div class="my-0 border-end col-md-3 col-12">
+                <p class="my-1 my-md-3">
+                    <input hidden name="cliente" value="@Model.cliente" class="form-control" />
+                    <strong>Cliente:</strong> <br class="d-none d-md-inline">
+                    @Html.LabelForModel(Model.cliente)
+                </p>
+            </div>
+            <div class="my-0 col-md-3 col-12">
+                <p class="my-1 my-md-3">
+                    <input hidden name="fecha" value="@Model.fecha" class="form-control" />
+                    <strong>Fecha:</strong> <br class="d-none d-md-inline">
+                    @Model.fecha.ToString()
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+
+        <div>
+            <div class="row mt-4">
+                <div class="col">
+                    <h5>
+                        1.- Selecciona monto a pagar
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="inputselect" class="row mx-0 mx-md-2 p-2 p-md-4 mt-3 balance-row">
+            <div class="pl-0 pl-md-4 col-6">
+                <div class="myTest custom-control custom-checkbox">
+                    <input type="checkbox" class="form-check-input" id="customCheck1">
+                    <label  for="customCheck1">Monto a pagar</label>
+                </div>
+            </div>
+            <div class="pr-0 col-md-4 offset-md-2 col-5">
+                <p class="mb-0 balance-total">
+                    Total a pagar: <br class="d-inline d-md-none">
+                    <b>$@Model.monto.ToString()</b>
+                    <input hidden name="monto" value="@Model.monto" class="form-control" />
+                </p>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="row mt-4">
+            <div class="col">
+                <h5>
+                    2.- Selecciona medio de pago
+                </h5>
+            </div>
+        </div>
+
+
+        <div id="inputselect2" class="row mx-0 mx-md-2 p-2 p-md-3 mt-3 d-flex align-items-center balance-row">
+            <div class="pl-2 col-md-6 col-12">
+                <div class="myTest custom-control custom-checkbox">
+                    <input type="checkbox" class="form-check-input" id="customCheck2">
+                    <label  for="customCheck2"> Kiphu</label>
+                </div>
+            </div>
+            <div class="px-0 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row px-0 pb-0 mx-0 mt-1 mb-0 text-center">
+                            <div class="p-0 my-0 mr-0 col-12">
+                                <img src="https://www.khipu.com/wp-content/uploads/2022/03/07-Khipu-200x75-1.svg" alt="maestro" class="img-webpay img-fluid" style="max-height: 100px; width: auto;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+        <div id="divPagarLinea" class="row p-2 p-md-3 mt-3 text-center">
+            <div class="my-1 col-12">
+                <button id="pagoenlinea" class="btn  border-0 text-white" style="background: #D73030; opacity:1.0;" disabled>
+                    PAGAR $@Model.monto.ToString()
+                </button>
+            </div>
+        </div>
+
+        <div id="loading" class="row text-center">
+            <div class="my-1 col-12">
+                <span><img src="~/img/icons/loading_pa.gif" style="height:100px; width:100px; display:none;"></span>
+            </div>
+        </div>
+
+        <div id="divUrlPago" class="row p-2 p-md-3 mt-3 text-center" style="display:none;">
+            <div class="col">
+                <h5>
+                    Si deseá pagar por fuera, copie este URL de pago.
+                </h5>
+            </div>
+            <div class="my-1 col-12">
+                <div class="input-group">
+                    <span id="copyButton" class="input-group-addon btn" title="Click to copy">
+                        <img src="~/img/icons/copypaste.png" style="height:30px; width:30px;">
+                    </span>
+                    <input type="text" id="copyTarget" class="form-control" value="mylink.com" readonly="readonly">
+                </div>
+            </div>
+            <div class="my-1 col-12" style="display:none;">
+            </div>
+            <div class="my-1 col-12"></div>
+        </div>
+
+
+        <div id="divIrPagar" class="row p-2 p-md-3 mt-3 text-center" style="display:none;">
+            <div class="col">
+                <h5>
+                    Si deséa continuar el pago por Khipu, presione aquí
+                </h5>
+            </div>
+            <div class="my-1 col-12">
+
+                <button id="irapagar" class="btn btn-balance border-0 btn-secondary">
+                    Continuar Pago
+                </button>
+
+            </div>
+            <div class="my-1 col-12" style="display:none;">
+            </div>
+            <div class="my-1 col-12"></div>
+        </div>
+
+
+        <div id="divCancelarPago" class="row p-2 p-md-3 mt-3 text-center">
+            <div class="my-1 col-12">
+                <button onclick="location.href='/PagoAgunsa/cancel'" type="button" id="cancelarpago" class="btn text-white border-0 " style="background:#D73030; opacity:1.0;">
+                    Cancelar Pago/Solicitud
+                </button>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+
+
+
+
+@section scripts {
+    <script>
+        $('#customCheck1').on('change', function () {
+            if ($(this).is(":checked")) {
+                $('#inputselect').removeClass("balance-row");
+                $('#inputselect').addClass("balance-row-selected");
+                //checkbox is checked, do something
+            }
+            else {
+                $('#inputselect').removeClass("balance-row-selected");
+                $('#inputselect').addClass("balance-row");
+                //checkbox is not checked, do something else
+            }
+        });
+
+        $('#customCheck2').on('change', function () {
+            if ($(this).is(":checked")) {
+                $('#inputselect2').removeClass("balance-row");
+                $('#inputselect2').addClass("balance-row-selected");
+                //checkbox is checked, do something
+            }
+            else {
+                $('#inputselect2').removeClass("balance-row-selected");
+                $('#inputselect2').addClass("balance-row");
+                //checkbox is not checked, do something else
+            }
+        });
+
+
+        $('#customCheck1').click(function () {
+            //check if checkbox 1 and 2 is checked
+            if ($('#customCheck1').is(':checked') && $('#customCheck2').is(':checked')) {
+                $('#pagoenlinea').removeAttr('disabled'); //enable input
+
+            } else {
+                $('#pagoenlinea').attr('disabled', true); //disable input
+            }
+        });
+
+        $('#customCheck2').click(function () {
+            //check if checkbox 1 and 2 is checked
+            if ($('#customCheck1').is(':checked') && $('#customCheck2').is(':checked')) {
+                $('#pagoenlinea').removeAttr('disabled'); //enable input
+
+            } else {
+                $('#pagoenlinea').attr('disabled', true); //disable input
+            }
+        });
+
+        $("#pagoenlinea").click(function () {
+
+
+            var valueKey = $("#token").val();
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("CrearPago")",
+                dataType: "json",
+                data: { token: valueKey },
+                beforeSend: function (xhr) {
+                    $("#loading").show();
+                },
+                success: function (result) {
+                    console.log(result);
+                    //se muestra div URL y ir a pagar button
+                    $("#divUrlPago").show();
+                    $("#divIrPagar").show();
+                    //Se asigna value a url
+                    $("#copyTarget").val(result.value.urlPago);
+
+                    //se bloquea botton pagar
+                    $("#pagoenlinea").prop("disabled", true);
+
+                    //se oculta boton cancelar
+
+                    $("#divCancelarPago").hide();
+
+
+
+                },
+                error: function (req, status, error) {
+                    console.log(status)
+                }
+            });
+
+        });
+
+
+        $("#irapagar").click(function () {
+
+
+            var url = $("#copyTarget").val();
+            //window.open(url, '_blank').focus();
+            window.location.href = url;
+
+        });
+
+
+        function myFunction() {
+            var copyText = document.getElementById("myInput");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+
+            var tooltip = document.getElementById("myTooltip");
+            tooltip.innerHTML = "Copied: " + copyText.value;
+        }
+
+        function outFunc() {
+            var tooltip = document.getElementById("myTooltip");
+            tooltip.innerHTML = "Copy to clipboard";
+        }
+
+
+
+
+    </script>
+}
